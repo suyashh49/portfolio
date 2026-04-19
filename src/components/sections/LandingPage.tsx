@@ -135,7 +135,8 @@ const LandingPage = () => {
                   <span className="w-10 h-10 md:w-12 md:h-12">
                     <Lottie animationData={wavingHand} loop={true} />
                   </span>
-                  <span>I&apos;m</span>
+                  {/* <span>I&apos;m</span> */}
+                  <span>Hi</span>
                 </span>
 
                 <span className="flex flex-row md:flex-row items-center gap-2">
@@ -160,7 +161,7 @@ const LandingPage = () => {
                     className="font-heading"
                     style={{ color: colors.blue.light }}
                   >
-                    Suyash Bhagat
+                    Aayushi, Good Morning
                   </span>
                 </span>
               </span>

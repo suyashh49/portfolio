@@ -52,7 +52,6 @@ const CreditUp = ({ onBack }: CreditUpProps) => {
 
     if (!container || !scrollable) return;
 
-    let interval: NodeJS.Timeout | null = null;
     let isManualScrolling = false;
     let manualScrollTimeout: NodeJS.Timeout | null = null;
 
@@ -84,7 +83,6 @@ const CreditUp = ({ onBack }: CreditUpProps) => {
     const setup = () => {
       const isMobile = window.innerWidth <= 1024;
 
-      if (interval) clearInterval(interval);
       window.removeEventListener("scroll", handleVerticalScroll);
       scrollable.removeEventListener("scroll", handleManualScroll);
 
@@ -106,7 +104,6 @@ const CreditUp = ({ onBack }: CreditUpProps) => {
     window.addEventListener("resize", setup);
 
     return () => {
-      if (interval) clearInterval(interval);
       if (manualScrollTimeout) clearTimeout(manualScrollTimeout);
       window.removeEventListener("resize", setup);
       window.removeEventListener("scroll", handleVerticalScroll);
