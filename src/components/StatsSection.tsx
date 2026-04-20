@@ -87,12 +87,12 @@ export default function StatsSection() {
       icon: <SiLeetcode className="w-4 h-4" />,
       tooltip: "Leetcode →",
     },
-    {
-      label: "Blogs Written",
-      value: blogsCount,
-      icon: <FaMedium className="w-4 h-4" />,
-      tooltip: "Medium →",
-    },
+    // {
+    //   label: "Blogs Written",
+    //   value: blogsCount,
+    //   icon: <FaMedium className="w-4 h-4" />,
+    //   tooltip: "Medium →",
+    // },
   ];
 
   return (

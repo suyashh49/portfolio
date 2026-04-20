@@ -1,24 +1,26 @@
 import { motion, useMotionValue, useAnimationFrame } from "framer-motion";
-import exploring from "../../assets/images/Exploring.jpg";
-import cooking from "../../assets/images/Cooking.jpg";
-import microWritting from "../../assets/images/MicroWritting.jpg";
-import gym from "../../assets/images/Gym.jpg";
-import eating from "../../assets/images/Eating.jpg";
-import beach from "../../assets/images/Beach.jpg";
-import nature from "../../assets/images/Nature.jpg";
-import scuba from "../../assets/images/ScubaDiving.png"
+import exploring from "../../assets/images/Exploring.png";
+import beach from "../../assets/images/Beach.png";
+import nature from "../../assets/images/Nature.png";
+import degree from "../../assets/images/Degree.png";
+import corporate from "../../assets/images/Corporate.png";
+import music from "../../assets/images/Music.png";
+
+
+
+
 import Image from "next/image";
 import { useState } from "react";
 
 const images = [
-  { src: microWritting, title: "Exploring ⛰️" },
-  { src: microWritting, title: "Into the Deep 🌊🤿" },
-  { src: microWritting, title: "Cooking 👨‍🍳" },
-  { src: microWritting, title: "Micro writting ✍️" },
-  { src: microWritting, title: "Gym 💪🏻" },
-  { src: microWritting, title: "Food 🍰" },
-  { src: microWritting, title: "Beach 🏖️" },
-  { src: microWritting, title: "Nature 🏕️" },
+  { src: exploring, title: "Exploring ⛰️" },
+  { src: degree, title: "Degree 🎓" },
+  // { src: microWritting, title: "Cooking 👨‍🍳" },
+  // { src: microWritting, title: "Micro writting ✍️" },
+  { src: music, title: "Music 🎧" },
+  { src: corporate, title: "Corporate 💼" },
+  { src: beach, title: "Beach 🏖️" },
+  { src: nature, title: "Nature 🏕️" },
 ];
 
 export default function ImageSlider() {

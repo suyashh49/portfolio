@@ -10,7 +10,7 @@ const navItems = [
     label: "Gmail",
     color: "text-red-400",
     bg: "bg-black",
-    link: "mailto:mohammedabdullahkhan26523@gmail.com",
+    link: "mailto:suyash.bhagat4903@gmail.com",
   },
   {
     icon: <FaLinkedinIn size={22} />,
