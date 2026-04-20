@@ -10,6 +10,7 @@ import Lottie from "lottie-react";
 import wavingHand from "../../assets/animations/handWave.json";
 import { colors } from "@/src/lib/colors";
 import dynamic from "next/dynamic";
+import AskMe from "../AskMe";
 
 // Disable SSR for this client-only component
 const RotatingText = dynamic(() => import("../animations/RotatingText"), {
@@ -210,16 +211,28 @@ const LandingPage = () => {
             </motion.h1>
           </div>
 
-          <motion.p
-            className="mt-6 text-gray-400 max-w-xl text-base md:text-lg font-body text-center"
+          {/*
+            Previous intro copy — kept for reuse elsewhere on the site.
+            <motion.p
+              className="mt-6 text-gray-400 max-w-xl text-base md:text-lg font-body text-center"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.1 }}
+            >
+              I have 2+ years of experience contributing to a low-code product’s
+              core codebase, combining full-stack and mobile expertise to solve
+              real-world challenges.
+            </motion.p>
+          */}
+
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.1 }}
+            className="w-full flex justify-center"
           >
-            I have 2+ years of experience contributing to a low-code product’s
-            core codebase, combining full-stack and mobile expertise to solve
-            real-world challenges.
-          </motion.p>
+            <AskMe />
+          </motion.div>
           <motion.a
             href="https://drive.google.com/file/d/1VV3aaI0PigYiPG0z3xZfEBHy0XFXyQNT/view?usp=sharing"
             target="_blank"
