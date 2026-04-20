@@ -161,7 +161,7 @@ const LandingPage = () => {
                     className="font-heading"
                     style={{ color: colors.blue.light }}
                   >
-                    I'm Suyash Bhagat
+                    I&apos;m Suyash Bhagat
                   </span>
                 </span>
               </span>
