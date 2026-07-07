@@ -11,7 +11,7 @@ interface NavbarProps {
 
 const Navbar = ({ isProjectOpen, onCloseProject }: NavbarProps) => {
   const menuItems = useMemo(
-    () => ["Home", "Projects", "Skills", "About", "Contact"],
+    () => ["Home", "Projects", "Skills", "About", "Certs", "Contact"],
     []
   );
   const containerRef = useRef<HTMLUListElement>(null);

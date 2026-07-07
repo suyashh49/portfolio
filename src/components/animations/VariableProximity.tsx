@@ -183,6 +183,30 @@ const VariableProximity = forwardRef<HTMLSpanElement, VariableProximityProps>(
       });
     });
 
+    const lineCharOffset = (lineIndex: number) =>
+      label
+        .split("\n")
+        .slice(0, lineIndex)
+        .reduce((acc, l) => acc + l.length + 1, 0);
+
+    const tokenizeLine = (line: string) => line.match(/\S+|\s+/g) ?? [];
+
+    const renderLetter = (char: string, index: number, isSpace: boolean) => (
+      <motion.span
+        key={index}
+        ref={(el: HTMLSpanElement | null) => {
+          letterRefs.current[index] = el;
+        }}
+        style={{
+          display: "inline-block",
+          whiteSpace: isSpace ? "pre" : undefined,
+          width: isSpace ? "0.25em" : undefined,
+        }}
+      >
+        {isSpace ? "\u00A0" : char}
+      </motion.span>
+    );
+
     return (
       <span
         ref={ref}
@@ -191,32 +215,49 @@ const VariableProximity = forwardRef<HTMLSpanElement, VariableProximityProps>(
         style={style}
         {...restProps}
       >
-        {label.split("\n").map((line, lineIndex) => (
-          <span key={lineIndex} style={{ display: "block" }}>
-            {[...line].map((char, i) => {
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              const index =
-                label
-                  .split("\n")
-                  .slice(0, lineIndex)
-                  .reduce((acc, l) => acc + l.length + 1, 0) + i;
+        {label.split("\n").map((line, lineIndex) => {
+          const baseOffset = lineCharOffset(lineIndex);
+          let localOffset = 0;
 
-              return (
-                <motion.span
-                  key={index}
-                  ref={(el: HTMLSpanElement | null) => { letterRefs.current[index] = el; }}
-                  style={{
-                    display: "inline-block",
-                    whiteSpace: char === " " ? "pre" : undefined,
-                    width: char === " " ? "0.2em" : undefined,
-                  }}
-                >
-                  {char === " " ? "\u00A0" : char}
-                </motion.span>
-              );
-            })}
-          </span>
-        ))}
+          return (
+            <span key={lineIndex} style={{ display: "block" }}>
+              {tokenizeLine(line).map((token, tokenIndex) => {
+                const isWhitespace = /^\s+$/.test(token);
+
+                if (isWhitespace) {
+                  return (
+                    <span
+                      key={`space-${lineIndex}-${tokenIndex}`}
+                      style={{ display: "inline-block" }}
+                      aria-hidden
+                    >
+                      {[...token].map((char) => {
+                        const index = baseOffset + localOffset++;
+                        return renderLetter(char, index, true);
+                      })}
+                    </span>
+                  );
+                }
+
+                return (
+                  <span
+                    key={`word-${lineIndex}-${tokenIndex}`}
+                    style={{
+                      display: "inline-block",
+                      whiteSpace: "nowrap",
+                      verticalAlign: "top",
+                    }}
+                  >
+                    {[...token].map((char) => {
+                      const index = baseOffset + localOffset++;
+                      return renderLetter(char, index, false);
+                    })}
+                  </span>
+                );
+              })}
+            </span>
+          );
+        })}
       </span>
     );
   }

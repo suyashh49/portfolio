@@ -10,6 +10,7 @@ import DeviceNotice from "../components/DeviceNotice";
 import LandingPage from "../components/sections/LandingPage";
 import Skills from "../components/sections/Skills";
 import About from "../components/sections/About";
+import Certifications from "../components/sections/Certifications";
 import Contact from "../components/sections/Contact";
 import BeyondCode from "../components/sections/BeyondCode";
 import Projects from "../components/sections/Projects";
@@ -138,6 +139,8 @@ function HomeContent() {
                 <section id="about">
                   <About />
                 </section>
+
+                <Certifications />
 
                 <section>
                   <BeyondCode />
