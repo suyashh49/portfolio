@@ -13,7 +13,7 @@ type VariableProximityProps = {
   label: string;
   fromFontVariationSettings: FontVariationSettings;
   toFontVariationSettings: FontVariationSettings;
-  containerRef: React.RefObject<HTMLElement>;
+  containerRef: React.RefObject<HTMLElement | null>;
   radius?: number;
   falloff?: "linear" | "exponential" | "gaussian";
   className?: string;
@@ -35,7 +35,7 @@ function useAnimationFrameActive(active: boolean, callback: () => void) {
 }
 
 function useMousePositionRef(
-  containerRef: React.RefObject<HTMLElement>
+  containerRef: React.RefObject<HTMLElement | null>
 ): MutableRefObject<{ x: number; y: number }> {
   const positionRef = useRef({ x: 0, y: 0 });
 
