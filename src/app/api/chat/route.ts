@@ -5,7 +5,7 @@ import {
   HarmCategory,
   type GenerativeModel,
 } from "@google/generative-ai";
-import { ABOUT_ME, FALLBACK_ANSWER } from "@/src/lib/aboutMe";
+import { ABOUT_ME, FALLBACK_ANSWER, MAX_CHAT_TURNS_PER_SESSION, sessionTurnLimitMessage } from "@/src/lib/aboutMe";
 import { buildReasoningChain } from "@/src/lib/chatReasoning";
 
 export const runtime = "nodejs";
@@ -126,6 +126,10 @@ function parseHistory(raw: unknown): HistoryTurn[] {
   }
   while (history.length && history[0].role !== "user") history.shift();
   return history;
+}
+
+function countUserTurns(history: HistoryTurn[]): number {
+  return history.filter((h) => h.role === "user").length;
 }
 
 function sseLine(payload: Record<string, unknown>): string {
@@ -349,6 +353,15 @@ export async function POST(req: NextRequest) {
   }
 
   const history = parseHistory(body?.history);
+
+  const sessionTurns = countUserTurns(history);
+  if (sessionTurns >= MAX_CHAT_TURNS_PER_SESSION) {
+    return NextResponse.json(
+      { error: sessionTurnLimitMessage() },
+      { status: 429 }
+    );
+  }
+
   const genAI = new GoogleGenerativeAI(apiKey);
   const models = modelCandidates();
 

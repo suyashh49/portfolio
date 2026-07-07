@@ -11,6 +11,8 @@ import React, {
 import { createPortal } from "react-dom";
 import {
   CHAT_STORAGE_KEY,
+  MAX_CHAT_TURNS_PER_SESSION,
+  sessionTurnLimitMessage,
   SUGGESTED_QUESTIONS,
 } from "@/src/lib/aboutMe";
 import { buildReasoningChain } from "@/src/lib/chatReasoning";
@@ -348,6 +350,12 @@ const AskMePanel: React.FC<PanelProps> = ({ open, onClose, initialDraft }) => {
       const q = raw.trim();
       if (!q || pending || streaming) return;
 
+      const userTurnCount = messages.filter((m) => m.role === "user").length;
+      if (userTurnCount >= MAX_CHAT_TURNS_PER_SESSION) {
+        setErrorMsg(sessionTurnLimitMessage());
+        return;
+      }
+
       abortRef.current?.abort();
       const controller = new AbortController();
       abortRef.current = controller;
@@ -408,7 +416,9 @@ const AskMePanel: React.FC<PanelProps> = ({ open, onClose, initialDraft }) => {
             );
           } else {
             setErrorMsg(data.error || "Something went wrong. Please try again.");
-            setMessages((prev) => prev.filter((m) => m.id !== assistantId));
+            setMessages((prev) =>
+              prev.filter((m) => m.id !== assistantId && m.id !== userMsg.id)
+            );
           }
           return;
         }
@@ -473,6 +483,9 @@ const AskMePanel: React.FC<PanelProps> = ({ open, onClose, initialDraft }) => {
   const busy = pending || streaming;
   const empty = messages.length === 0 && !busy && !errorMsg;
   const hasContext = messages.length > 0;
+  const userTurnCount = messages.filter((m) => m.role === "user").length;
+  const turnsRemaining = Math.max(0, MAX_CHAT_TURNS_PER_SESSION - userTurnCount);
+  const sessionLimitReached = userTurnCount >= MAX_CHAT_TURNS_PER_SESSION;
 
   const content = (
     <AnimatePresence>
@@ -513,11 +526,16 @@ const AskMePanel: React.FC<PanelProps> = ({ open, onClose, initialDraft }) => {
                   · AI assistant
                 </span>
                 {hasContext && (
-                  <span className="text-[10px] text-emerald-300/80 bg-emerald-400/10 border border-emerald-400/20 rounded-full px-2 py-0.5 hidden sm:inline">
-                    {messages.filter((m) => m.role === "user").length} turn
-                    {messages.filter((m) => m.role === "user").length === 1
-                      ? ""
-                      : "s"}
+                  <span
+                    className={`text-[10px] rounded-full px-2 py-0.5 hidden sm:inline border ${
+                      sessionLimitReached
+                        ? "text-amber-200/90 bg-amber-400/10 border-amber-400/25"
+                        : "text-emerald-300/80 bg-emerald-400/10 border-emerald-400/20"
+                    }`}
+                  >
+                    {sessionLimitReached
+                      ? "Session limit reached"
+                      : `${turnsRemaining} question${turnsRemaining === 1 ? "" : "s"} left`}
                   </span>
                 )}
               </div>
@@ -550,13 +568,24 @@ const AskMePanel: React.FC<PanelProps> = ({ open, onClose, initialDraft }) => {
               ref={scrollerRef}
               className="flex-1 overflow-y-auto px-4 sm:px-6 py-5 space-y-4 scroll-smooth"
             >
-              {empty && <EmptyState onPick={(q) => ask(q)} />}
+              {empty && (
+                <EmptyState
+                  onPick={(q) => ask(q)}
+                  disabled={sessionLimitReached}
+                />
+              )}
 
               {messages.map((m) => (
                 <MessageBubble key={m.id} message={m} />
               ))}
 
-              {errorMsg && (
+              {sessionLimitReached && (
+                <div className="mx-auto max-w-[90%] text-xs text-amber-100 bg-amber-500/10 border border-amber-400/25 rounded-xl px-3 py-2 text-center">
+                  {sessionTurnLimitMessage()}
+                </div>
+              )}
+
+              {errorMsg && !sessionLimitReached && (
                 <div className="mx-auto max-w-[80%] text-xs text-red-200 bg-red-500/10 border border-red-400/20 rounded-xl px-3 py-2 text-center">
                   {errorMsg}
                 </div>
@@ -584,18 +613,20 @@ const AskMePanel: React.FC<PanelProps> = ({ open, onClose, initialDraft }) => {
                   onKeyDown={handleKeyDown}
                   rows={1}
                   placeholder={
-                    hasContext
-                      ? "Ask a follow-up…"
-                      : "Ask about experience, skills, certifications…"
+                    sessionLimitReached
+                      ? "Session question limit reached"
+                      : hasContext
+                        ? "Ask a follow-up…"
+                        : "Ask about experience, skills, certifications…"
                   }
                   aria-label="Type your question"
                   maxLength={MAX_LENGTH}
-                  disabled={busy}
+                  disabled={busy || sessionLimitReached}
                   className="flex-1 resize-none bg-transparent outline-none text-white placeholder-white/45 text-sm md:text-base leading-6 max-h-36 py-1 disabled:opacity-60"
                 />
                 <motion.button
                   type="submit"
-                  disabled={!input.trim() || busy}
+                  disabled={!input.trim() || busy || sessionLimitReached}
                   whileTap={{ scale: 0.92 }}
                   aria-label="Send question"
                   className="shrink-0 w-9 h-9 rounded-full bg-white text-gray-900 flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-100 transition"
@@ -612,9 +643,11 @@ const AskMePanel: React.FC<PanelProps> = ({ open, onClose, initialDraft }) => {
               </div>
               <div className="flex items-center justify-between mt-1.5 px-1 text-[11px] text-white/40">
                 <span>
-                  {hasContext
-                    ? "Context kept for follow-ups · Enter to send"
-                    : "Enter to send · Shift+Enter for newline"}
+                  {sessionLimitReached
+                    ? "Clear chat to ask more questions"
+                    : hasContext
+                      ? `${turnsRemaining} of ${MAX_CHAT_TURNS_PER_SESSION} questions left · Enter to send`
+                      : "Enter to send · Shift+Enter for newline"}
                 </span>
                 <span>
                   {input.length}/{MAX_LENGTH}
@@ -631,7 +664,10 @@ const AskMePanel: React.FC<PanelProps> = ({ open, onClose, initialDraft }) => {
   return createPortal(content, document.body);
 };
 
-const EmptyState: React.FC<{ onPick: (q: string) => void }> = ({ onPick }) => (
+const EmptyState: React.FC<{
+  onPick: (q: string) => void;
+  disabled?: boolean;
+}> = ({ onPick, disabled }) => (
   <div className="h-full flex flex-col items-center justify-center text-center py-10">
     <div className="w-12 h-12 rounded-full bg-white/10 border border-white/15 flex items-center justify-center mb-4">
       <Sparkles className="w-5 h-5 text-white/80" aria-hidden />
@@ -649,7 +685,8 @@ const EmptyState: React.FC<{ onPick: (q: string) => void }> = ({ onPick }) => (
           key={s}
           type="button"
           onClick={() => onPick(s)}
-          className="text-xs md:text-sm px-3 py-1.5 rounded-full border border-white/15 bg-white/5 text-white/80 hover:bg-white/15 hover:text-white transition"
+          disabled={disabled}
+          className="text-xs md:text-sm px-3 py-1.5 rounded-full border border-white/15 bg-white/5 text-white/80 hover:bg-white/15 hover:text-white transition disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {s}
         </button>

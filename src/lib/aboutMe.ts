@@ -134,3 +134,12 @@ export const SUGGESTED_QUESTIONS: string[] = [
 
 /** Session storage key for persisting chat messages within a browser session. */
 export const CHAT_STORAGE_KEY = "asksuyash-chat-messages";
+
+/** Max user questions per browser session (client + server enforced). */
+export const MAX_CHAT_TURNS_PER_SESSION = 12;
+
+export function sessionTurnLimitMessage(
+  max: number = MAX_CHAT_TURNS_PER_SESSION
+): string {
+  return `You've used all ${max} questions for this session. Tap "Clear chat" to start a new conversation.`;
+}
