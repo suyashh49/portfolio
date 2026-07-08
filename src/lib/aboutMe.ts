@@ -95,15 +95,20 @@ System design at scale, advanced animations, 3D / TouchDesigner-style
 visualisations, and AI-assisted developer tooling.
 
 ## Featured projects
-1. CreditUp — React Native + TypeScript + Node.js + PostgreSQL.
+1. Arilo — React Native + TypeScript + Expo + Redux Toolkit + NativeWind.
+   AI-powered personal memory companion. Capture voice/text "Echoes", auto-extract
+   next steps, chat with your memories via Deep Query, persona analysis.
+   Live on Google Play. Website: https://arilo.in
+   Play Store: https://play.google.com/store/apps/details?id=com.anonymous.projectxapp
+2. CreditUp — React Native + TypeScript + Node.js + PostgreSQL.
    Credit-card discovery and eligibility app with smart recommendations,
    card comparison, spending profiler, credit booster and OTP auth.
-2. Network SuperApp — React Native + TypeScript + Expo + MongoDB.
+3. Network SuperApp — React Native + TypeScript + Expo + MongoDB.
    Mobile super-app combining multiple networking-focused features.
-3. SmartIconsKit — published icon kit / design-system utility.
-4. FeatureDeck — feature-showcase / pitch tool.
-5. HackDefense — security-focused project.
-6. SlayDay (Arilo) — React Native + TypeScript + Firebase.
+4. SmartIconsKit — published icon kit / design-system utility.
+5. FeatureDeck — feature-showcase / pitch tool.
+6. HackDefense — security-focused project.
+7. SlayDay — React Native + TypeScript + Firebase. Productivity app.
 
 ## Beyond code
 - Music fanatic — loves creating new dimensions in music.

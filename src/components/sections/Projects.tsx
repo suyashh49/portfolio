@@ -4,7 +4,7 @@ import SmartIconsKitBanner from "../../assets/images/projects/smartIconsKitBanne
 import NSapp from "../../assets/images/projects/NSapp/NSapp.png"
 import FeatureDeckBanner from "../../assets/images/projects/featureDeck.png";
 import CreditUpBanner from "../../assets/images/projects/creditup/welcome.png";
-import SlayDayCover from "../../assets/images/projects/slayDayCover.png";
+import AriloBanner from "../../assets/images/projects/arilo/1024x1024_arilo.png";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import BlurText from "../animations/BlurText";
@@ -15,17 +15,18 @@ import { useInView } from "framer-motion";
 
 const projectData = [
   {
+    id: "arilo",
+    title: "Arilo",
+    tech: ["React Native", "TypeScript", "Expo", "Redux Toolkit"],
+    image: AriloBanner,
+    isLogo: true,
+  },
+  {
     id: "creditup",
     title: "CreditUp",
     tech: ["React Native", "TypeScript", "Node.js", "PostgreSQL"],
     image: CreditUpBanner,
   },
-  // {
-  //   id: "slayday",
-  //   title: "Arilo",
-  //   tech: ["React Native", "TypeScript", "Firebase"],
-  //   image: SlayDayCover,
-  // },
   {
     id: "network-superapp",
     title: "Network SuperApp",
@@ -98,11 +99,19 @@ const Projects = ({ onSelectProject }: any) => {
                 onMouseEnter={() => setHovered(project.id)}
                 onMouseLeave={() => setHovered(null)}
               >
-                <div className="overflow-hidden rounded-3xl shadow-md">
+                <div
+                  className={`overflow-hidden rounded-3xl shadow-md ${
+                    project.isLogo ? "bg-[#0a0a0a] flex items-center justify-center h-40 md:h-60 2xl:h-80" : ""
+                  }`}
+                >
                   <Image
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-40 md:h-60 2xl:h-80 object-cover transition-transform duration-500 group-hover:scale-105"
+                    className={
+                      project.isLogo
+                        ? "w-28 md:w-36 2xl:w-44 h-auto object-contain"
+                        : "w-full h-40 md:h-60 2xl:h-80 object-cover transition-transform duration-500 group-hover:scale-105"
+                    }
                   />
                 </div>
 

@@ -20,12 +20,14 @@ import HackDefense from "../components/projects/HackDefense";
 import FeatureDeck from "../components/projects/FeatureDeck";
 import CreditUp from "../components/projects/CreditUp";
 import NetworkSuperApp from "../components/projects/NetworkSuperApp";
+import Arilo from "../components/projects/Arilo";
 
 function HomeContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const projectParam = searchParams.get("project") as
+    | "arilo"
     | "slayday"
     | "smart-icons-kit"
     | "hack-defense"
@@ -37,7 +39,7 @@ function HomeContent() {
   const scrollToParam = searchParams.get("scrollTo");
 
   const [selectedProject, setSelectedProject] = useState<
-    "none" | "slayday" | "smart-icons-kit" | "hack-defense" | "featuredeck" | "creditup" | "network-superapp"
+    "none" | "arilo" | "slayday" | "smart-icons-kit" | "hack-defense" | "featuredeck" | "creditup" | "network-superapp"
   >(projectParam ?? "none");
 
   const [bgColor, setBgColor] = useState("#FFFFFF"); // background color state
@@ -75,7 +77,7 @@ function HomeContent() {
   }, [selectedProject, scrollToParam, prevProject]);
 
   const openProject = (
-    project: "slayday" | "smart-icons-kit" | "hack-defense" | "featuredeck" | "creditup" | "network-superapp"
+    project: "arilo" | "slayday" | "smart-icons-kit" | "hack-defense" | "featuredeck" | "creditup" | "network-superapp"
   ) => {
     router.push(`/?project=${project}`, { scroll: false });
   };
@@ -89,6 +91,7 @@ function HomeContent() {
   };
 
   const renderProjects = () => {
+    if (selectedProject === "arilo") return <Arilo onBack={goBack} />;
     if (selectedProject === "slayday") return <SlayDay onBack={goBack} />;
     if (selectedProject === "smart-icons-kit")
       return <SmartIconsKit onBack={goBack} />;

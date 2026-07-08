@@ -24,6 +24,7 @@ import {
   SiVercel,
   SiExpo,
   SiRealm,
+  SiRedux,
 } from "react-icons/si";
 import { BsBootstrap } from "react-icons/bs";
 import reactNative from "../assets/images/React_Native.png";
@@ -295,37 +296,62 @@ const skillsData: SkillsData = {
     skills: [
       {
         name: "React Native",
-        desc: "Built animated, cross-platform mobile components with charts and Firebase in work and personal projects",
+        desc: "Built Arilo (AI memory companion on Google Play), animated cross-platform components, and production mobile apps with charts and Firebase.",
         badge: "MOBILE DEV",
         icon: <FaReact className="text-cyan-400" />,
       },
       {
         name: "Expo",
-        desc: "Used to streamline React Native development, updates, and builds.",
+        desc: "Used in Arilo and other apps to streamline React Native development, OTA updates, and builds.",
         badge: "MOBILE",
         icon: <SiExpo className="text-black" />,
       },
       {
-        name: "RealmDB",
-        desc: "Integrated into mobile apps to support offline data and local sync.",
-        badge: "LOCAL SYNC",
-        icon: <SiRealm className="text-indigo-500" />,
+        name: "Redux Toolkit",
+        desc: "State management in Arilo — slices for notes, tasks, deep query, mood, and user preferences with typed hooks.",
+        badge: "STATE MGMT",
+        icon: <SiRedux className="text-purple-500" />,
+      },
+      {
+        name: "Expo Router",
+        desc: "File-based navigation in Arilo with typed routes, tab layouts, and nested stacks via expo-router.",
+        badge: "NAVIGATION",
+        icon: <SiExpo className="text-black" />,
+      },
+      {
+        name: "React Native Reanimated",
+        desc: "Fluid animations and gesture-driven UI in Arilo — tab transitions, modals, and interactive components.",
+        badge: "ANIMATION",
+        icon: <SiFramer className="text-pink-400" />,
       },
       {
         name: "NativeWind",
-        desc: "Used to bring Tailwind-like utility-first styling to React Native apps, improving dev speed and consistency.",
+        desc: "Utility-first styling in Arilo for consistent theming, dark/light modes, and rapid UI iteration.",
         badge: "UTILITY STYLE",
         icon: <SiTailwindcss className="text-sky-400" />,
       },
     ],
-    recent: [],
+    recent: [
+      {
+        name: "Redux Toolkit",
+        desc: "Recently used in Arilo for modular slice-based state across notes, tasks, and AI chat.",
+        badge: "STATE MGMT",
+        icon: <SiRedux className="text-purple-500" />,
+      },
+      {
+        name: "Expo Router",
+        desc: "File-based routing in Arilo with tab navigation and typed routes.",
+        badge: "NAVIGATION",
+        icon: <SiExpo className="text-black" />,
+      },
+    ],
     featured: [
       {
         name: "React Native",
-        desc: "Built cross-platform mobile app components with animations and accessibility improvements in my professional work.",
+        desc: "Shipped Arilo on Google Play — AI memory companion with voice capture, Deep Query, and persona analysis.",
         badge: "MOBILE DEV",
         icon: <FaReact className="text-cyan-400 text-4xl" />,
-        banner: "from-blue-400 via-cyan-500 to-teal-400",
+        banner: "from-violet-400 via-purple-500 to-indigo-500",
       },
     ],
     learning: [],
@@ -335,15 +361,33 @@ const skillsData: SkillsData = {
     skills: [
       {
         name: "React Native",
-        desc: "Built animated, cross-platform mobile components with charts and Firebase in work and personal projects",
+        desc: "Built Arilo (AI memory companion on Google Play), animated cross-platform components, and production mobile apps.",
         badge: "MOBILE DEV",
         icon: <FaReact className="text-cyan-400" />,
       },
       {
         name: "Expo",
-        desc: "Used to streamline React Native development, updates, and builds.",
+        desc: "Used in Arilo and other apps to streamline React Native development, updates, and builds.",
         badge: "MOBILE",
         icon: <SiExpo className="text-black" />,
+      },
+      {
+        name: "Redux Toolkit",
+        desc: "State management in Arilo — slices for notes, tasks, deep query, mood, and user preferences.",
+        badge: "STATE MGMT",
+        icon: <SiRedux className="text-purple-500" />,
+      },
+      {
+        name: "Expo Router",
+        desc: "File-based navigation in Arilo with typed routes, tab layouts, and nested stacks.",
+        badge: "NAVIGATION",
+        icon: <SiExpo className="text-black" />,
+      },
+      {
+        name: "React Native Reanimated",
+        desc: "Fluid animations and gesture-driven UI in Arilo — tab transitions, modals, and interactive components.",
+        badge: "ANIMATION",
+        icon: <SiFramer className="text-pink-400" />,
       },
       {
         name: "Python",
@@ -377,7 +421,7 @@ const skillsData: SkillsData = {
       },
       {
         name: "NativeWind",
-        desc: "Used to bring Tailwind-like utility-first styling to React Native apps, improving dev speed and consistency.",
+        desc: "Utility-first styling in Arilo for consistent theming, dark/light modes, and rapid UI iteration.",
         badge: "UTILITY STYLE",
         icon: <SiTailwindcss className="text-sky-400" />,
       },
@@ -469,14 +513,14 @@ const skillsData: SkillsData = {
 
     recent: [
       {
-        name: "Tailwind CSS",
-        desc: "Used in recent portfolio redesigns for rapid prototyping.",
-        badge: "UI TOOLKIT",
-        icon: <SiTailwindcss className="text-sky-400" />,
+        name: "Redux Toolkit",
+        desc: "Recently used in Arilo for modular slice-based state across notes, tasks, and AI chat.",
+        badge: "STATE MGMT",
+        icon: <SiRedux className="text-purple-500" />,
       },
       {
         name: "TypeScript",
-        desc: "Actively used in React Native codebases for type safety and bug prevention.",
+        desc: "Actively used in Arilo and React Native codebases for type safety and bug prevention.",
         badge: "MODERN STACK",
         icon: <SiTypescript className="text-blue-500" />,
       },
@@ -505,10 +549,10 @@ const skillsData: SkillsData = {
       },
       {
         name: "React Native",
-        desc: "Build native mobile apps using JavaScript and React.",
+        desc: "Shipped Arilo on Google Play — AI memory companion with voice capture, Deep Query, and persona analysis.",
         badge: "Mobile Favorite",
         icon: <FaMobileAlt className="text-blue-400 text-4xl" />,
-        banner: "from-blue-400 via-blue-500 to-blue-600",
+        banner: "from-violet-400 via-purple-500 to-indigo-500",
         image: reactNative,
       },
     ],

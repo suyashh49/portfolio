@@ -132,21 +132,21 @@ const LandingPage = () => {
               transition={{ duration: 0.8, delay: 0.6 }}
             >
               <span className="flex flex-col sm:flex-row justify-center items-center gap-2">
-                <span className="flex items-center gap-2">
-                  <span className="w-10 h-10 md:w-12 md:h-12">
+                <span className="inline-flex items-center gap-2">
+                  <span className="w-10 h-10 md:w-12 md:h-12 shrink-0">
                     <Lottie animationData={wavingHand} loop={true} />
                   </span>
-                  {/* <span>I&apos;m</span> */}
                   <span>Hi</span>
                 </span>
 
-                <span className="flex flex-row md:flex-row items-center gap-2">
-                  <span className="relative group">
+                <span className="inline-flex items-center gap-2">
+                  <span className="relative group shrink-0">
                     <Image
                       src={myPic}
                       alt="Suyash Bhagat Picture"
-                      sizes="(max-width: 768px) 40px, 60px"
-                      className="rounded-full shadow-lg group-hover:cursor-pointer w-[35px] h-[25px] md:w-[80px] md:h-[60px]"
+                      width={72}
+                      height={72}
+                      className="rounded-full shadow-lg object-cover w-[1.15em] h-[1.15em] group-hover:cursor-pointer"
                       placeholder="blur"
                     />
                     {/* Tooltip */}
@@ -183,20 +183,23 @@ const LandingPage = () => {
               </span>
 
               {/* Location */}
-              <span className="mt-2 block">
-                from{" "}
-                <span
-                  className="font-heading"
-                  style={{ color: colors.orange.light }}
-                >
-                  India
+              <span className="mt-2 inline-flex items-center justify-center gap-2 flex-wrap">
+                <span>
+                  from{" "}
+                  <span
+                    className="font-heading"
+                    style={{ color: colors.orange.light }}
+                  >
+                    India
+                  </span>
                 </span>
-                <span className="inline-block ml-2 relative group">
+                <span className="relative group shrink-0">
                   <Image
                     src={charminar}
                     alt="Kanpur, Uttar Pradesh"
-                    sizes="(max-width: 768px) 40px, 60px"
-                    className="rounded-full shadow-lg group-hover:cursor-pointer w-[25px] h-[35px] md:w-[60px] md:h-[70px]"
+                    width={72}
+                    height={72}
+                    className="rounded-full shadow-lg object-cover w-[1.1em] h-[1.1em] group-hover:cursor-pointer"
                     placeholder="blur"
                   />
                   {/* Tooltip */}
